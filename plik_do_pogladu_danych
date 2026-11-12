@@ -1,0 +1,39 @@
+import io
+import pandas as pd
+
+#Hej dziewczyny
+df = pd.read_csv("dane/file.csv")
+
+#Liczba poszczególnych awarii
+print(df['failure_type'].value_counts())
+
+#Procent poszczególnych awarii
+print(df['failure_type'].value_counts(normalize=True * 100))
+
+#Liczba maszyn
+print(f"Num of machines: {df['machine_id'].nunique()}")
+
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+#Minimalny timestamp
+print(f"Min time:  {df['timestamp'].min()}")
+
+#Maksymalny timestamp
+print(f"Max time: {df['timestamp'].max()}")
+
+print(df.groupby('machine_failure')[['failure_probability', 'machine_health_score']].mean())
+
+#print(df.info())
+
+# suspect_cols = [
+#     'machine_health_score', 'failure_probability', 
+#     'bearing_health', 'motor_health', 'pump_health', 
+#     'hydraulic_health', 'electrical_health', 'cooling_system_health',
+#     'temperature_anomaly_score', 'vibration_anomaly_score'
+# ]
+
+# print("--- Korelacja z RUL ---")
+# print(df[suspect_cols].corrwith(df['remaining_useful_life_hours']).sort_values())
+
+# print("\n--- Korelacja z machine_failure ---")
+# print(df[suspect_cols].corrwith(df['machine_failure']).sort_values())
